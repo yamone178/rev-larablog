@@ -26,13 +26,16 @@
                             <tr>
                                 <td>{{$category->id}}</td>
                                 <td>{{$category->title}}</td>
-                                <td>{{$category->user_id}}</td>
-                                <td class="d-flex">
-                                    <a href="{{route('category.edit',$category->id)}}" class="btn btn-sm me-2 btn-outline-warning">
+                                <td>{{$category->user->name}}</td>
+                                <td class="">
+                                    @can('update',$category)
+                                    <a href="{{route('category.edit',$category->id)}}" class="btn btn-sm me-2 d-inline-block btn-outline-warning">
                                         <i class="bi bi-pencil"></i>
                                     </a>
+                                    @endcan
 
-                                    <form action="{{route('category.destroy',$category->id)}}" method="post">
+                                    @can('delete',$category)
+                                    <form action="{{route('category.destroy',$category->id)}}" class="d-inline-block" method="post">
                                         @csrf
                                         @method('delete')
                                         <button  class="btn btn-sm btn-outline-danger">
@@ -40,7 +43,10 @@
                                         </button>
 
 
+
                                     </form>
+
+                                        @endcan
                                 </td>
                             </tr>
                             @endforeach

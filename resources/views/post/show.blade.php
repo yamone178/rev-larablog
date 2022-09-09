@@ -20,7 +20,12 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <h4 class="card-title">{{$post->title}}</h4>
-                            <span>{{$post->created_at->diffforHumans()}}</span>
+                            <span>{{$post->created_at->diffforHumans()}}</span><br>
+
+                            @foreach($post->photos as $photo)
+                            <img src="{{asset("storage/".$photo->name)}}" width="80px" class="rounded-3 my-3" alt="">
+
+                            @endforeach
                             <p class="mt-3">{{$post->description}}</p>
                             @if(isset($post->featured_image))
                                 <img src="{{asset("storage/".$post->featured_image)}}" width="150px" class="rounded-3" alt="">
@@ -32,8 +37,8 @@
                                 </div>
                                 <div class="">
                                     <a href="{{route('post.index')}}" class="btn btn-outline-primary" >All Posts</a>
-                                    <a href="{{route('post.show',$post->id)}}" class="btn btn-primary">
-                                        Show More
+                                    <a href="{{route('post.index')}}" class="btn btn-primary">
+                                        Post List
                                     </a>
                                 </div>
                             </div>

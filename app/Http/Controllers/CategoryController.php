@@ -7,6 +7,7 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 
 class CategoryController extends Controller
@@ -18,7 +19,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories= Category::all();
+        $categories= Category::all()
+        ->when(Auth::user()->isAuthor(),fn($q)=> $q->where('user_id',Auth::id()));
         return view('category.index',compact('categories'));
     }
 
@@ -82,6 +84,11 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
 
+//        if (Gate::denies('update',$category)){
+//            return abort('403','you are not allowed to update');
+//        }
+
+        Gate::authorize('update',$category);
 
         $category->title= $request->title;
         $category->slug= Str::slug($request->title);

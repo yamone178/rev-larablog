@@ -23,6 +23,55 @@
                                     @enderror
                                 </div>
 
+
+
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Select Category</label>
+                                    <select name="category" class="form-select form-select-lg mb-3" form="postUpdate" aria-label=".form-select-lg example">
+                                        @foreach(\App\Models\Category::all() as $category)
+                                            <option value="{{$category->id}}"
+                                                {{$category->id == old('category',$category->id) ? 'selected':''}}
+                                            >{{$category->title}}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+                            <div class="mb-3">
+
+                               @foreach($post->photos as $photo)
+
+                                    <img src="{{asset('storage/'.$photo->name)}}" width="80px" alt="">
+
+                                    <form action="{{route('photo.destroy',$photo->id)}}" class="d-inline"  method="post">
+                                        @csrf
+                                        @method('delete')
+
+                                        <button  class="btn btn-sm btn-danger">
+                                            <i class="bi bi-trash3"></i>
+                                        </button>
+
+                                    </form>
+                                @endforeach
+                            </div>
+
+                            <div class="mb-3">
+
+                                <label for="" class="form-label" id="photo">upload photos</label>
+                                <input form="postUpdate" name="photos[]" type="file" for="photo" class="form-control
+                                            @error('photos') is-invalid @enderror
+                                @error('photos.*') is-invalid @enderror"
+
+                                       multiple>
+                                @error('photos')
+                                <span class="invalid-feedback">{{$message}}</span>
+                                @enderror
+
+                                @error('photos.*')
+                                <span class="invalid-feedback">{{$message}}</span>
+                                @enderror
+                            </div>
+
                                 <div class="mb-3">
                                     <label for="" class="form-label">Description</label>
                                     <textarea name="description" form="postUpdate" id="" cols="30" rows="10" class="form-control @error('description') is-invalid @enderror">

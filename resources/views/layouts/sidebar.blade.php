@@ -6,9 +6,14 @@
 
     <div class="">
         <div class="list-group fs-base">
-            <a href="" class="list-group-item mb-4">
+            <a href="" class="list-group-item ">
                 <i class=" me-2 bi bi-house"></i>
                 <span>Dashboard</span>
+            </a>
+
+            <a href="{{route('photo.index')}}" class="list-group-item ">
+                <i class=" me-2 bi bi-house"></i>
+                <span>Gallery</span>
             </a>
             <a href="" class="list-group-item">
                 <i class=" me-2 bi bi-journal-bookmark-fill"></i>
@@ -60,7 +65,7 @@
                     </div>
                 </div>
             </div>
-            <a href="" class="list-group-item">
+            <a href="{{route('user.index')}}" class="list-group-item">
                 <i class=" me-2 bi bi-people"></i>
                <span> Customer</span>
             </a>

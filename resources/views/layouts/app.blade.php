@@ -44,7 +44,7 @@
         </main>
     </div>
 
-    <script>
+    <script type="module">
        @if(session('status'))
 
        window.addEventListener('load',function (){

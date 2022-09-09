@@ -24,13 +24,33 @@
                                     @enderror
                                 </div>
 
-                                <label for="" class="form-label">Select Category</label>
-                                <select name="category" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-                                    <option selected>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                                <div class="mb-3">
+                                    <label for="" class="form-label">Select Category</label>
+                                    <select name="category" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                                        @foreach(\App\Models\Category::all() as $category)
+                                            <option value="{{$category->id}}"
+                                                {{$category->id == old('category') ? 'selected':''}}
+                                            >{{$category->title}}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+
+                                    <label for="" class="form-label">upload photos</label>
+                                    <input name="photos[]" type="file" class="form-control
+                                            @error('photos') is-invalid @enderror
+                                            @error('photos.*') is-invalid @enderror"
+                                           multiple>
+                                    @error('photos')
+                                    <span class="invalid-feedback">{{$message}}</span>
+                                    @enderror
+
+                                    @error('photos.*')
+                                    <span class="invalid-feedback">{{$message}}</span>
+                                    @enderror
+                                </div>
 
                                 <div class="mb-3">
                                     <label for="" class="form-label">Description</label>
